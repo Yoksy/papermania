@@ -1,0 +1,61 @@
+{
+  "id": 1,
+  "name": "How to make a box out of paper",
+  "url": "craft/papercraft/custom_monkey_d_luffy_papercraft-20180313",
+  "description": "Quare talis improborum consensio non modo excusatione amicitiae tegenda non est sed potius supplicio omni vindicanda est, ut ne quis concessum putet amicum vel bellum patriae inferentem sequi; quod quidem, ut res ire coepit, haud scio an aliquando futurum sit. Mihi autem non minori curae est, qualis res publica post mortem meam futura, quam qualis hodie sit.",
+  "cover_large": "/medias/user_content/yoksy/custom_monkey_d_#hash#/cover_large.jpg",
+  "author": "Yoksy",
+  "type": "tutorial",
+  "difficulty": 3,
+  "completion_time": 120,
+  "nb_likes": 354,
+  "nb_comments": 12,
+  "category": "papercraft",
+  "tags": ["papercraft", "anime", "one piece"],
+  "created_at": "2018-03-12",
+  "updated_at": "2018-03-13",
+  "main_video_link": null,
+  "main_pictures": null,
+  "tutorial_steps": [
+    {
+      "order": 0,
+      "title": "Step title",
+      "content": "Step content, build with an <strong>editor</strong>",
+      "pictures": "/medias/user_content/yoksy/custom_monkey_d_#hash#/gallery/156844513213.jpg",
+      "video_link": null,
+      "tip": null
+    },
+    {
+      "order": 1,
+      "title": "Step title 2",
+      "content": "Step content 2",
+      "pictures": [
+        "/medias/user_content/yoksy/custom_monkey_d_#hash#/gallery/156844513214.jpg",
+        "/medias/user_content/yoksy/custom_monkey_d_#hash#/gallery/156844513215.jpg"
+      ],
+      "video_link": null,
+      "tip": "This is tip content, could have simple html tags inside"
+    },
+    {
+      "order": 2,
+      "title": "Step title 3",
+      "content": "Step content 3",
+      "pictures": null,
+      "video_link": "https://www.youtube.com/watch?v=cTHJCWObjHQ",
+      "tip": null
+    },
+    {
+      "order": 3,
+      "title": "Step title 4",
+      "content": "Step content 4",
+      "pictures": null,
+      "video_link": null,
+      "tip": null
+    }
+  ],
+  "download_link": [
+    "/medias/user_content/yoksy/custom_monkey_d_#hash#/files/instructions.txt",
+    "/medias/user_content/yoksy/custom_monkey_d_#hash#/files/luffy.pdf"
+  ]
+
+}
