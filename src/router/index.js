@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
-import Item from '@/components/views/item'
-import About from '@/components/views/about'
+import Home from '@/components/pages/Home'
+import Craft from '@/components/pages/Craft'
+import About from '@/components/pages/About'
 
 Vue.use(Router)
 
@@ -19,9 +19,9 @@ export default new Router({
       component: About
     },
     {
-      path: '/craft/:type/:itemId',
-      name: 'Item',
-      component: Item
+      path: '/crafts/:category/:slug',
+      name: 'Craft',
+      component: Craft
     }
   ]
 })

@@ -1,0 +1,16 @@
+export default {
+  id: 1,
+  name: 'Custom Monkey D Luffy papercraft',
+  slug: 'custom_monkey-d-luffy-papercraft-e37c6a388a5bfc9cf5ca3de3a325e3b4',
+  descriptionShort: 'A small project of mine consisting of featuring one of my favourite manga character',
+  coverSmall: '/medias/user_content/yoksy/custom_monkey_d_#hash#/cover_small.jpg',
+  author: 'Yoksy',
+  difficulty: 3,
+  completionTime: 120,
+  nbLikes: 354,
+  nbComments: 12,
+  category: 'papercraft',
+  tags: ['papercraft', 'anime', 'one piece'],
+  createdAt: '2018-03-12 12:37:12',
+  updatedAt: '2018-03-13 13:10:01',
+}

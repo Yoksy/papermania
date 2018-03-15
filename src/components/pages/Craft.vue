@@ -1,7 +1,7 @@
 <template>
   <layout-main>
     <h2>type : {{ $route.params.type }}</h2>
-    <h2>id : {{ $route.params.itemId }}</h2>
+    <h2>id : {{ $route.params.slug }}</h2>
 
     <p>Name: {{item.name}}</p>
   </layout-main>
@@ -9,7 +9,7 @@
 
 <script>
   import LayoutMain from '@/components/layouts/main'
-  import Item from '@/json/tests/craft/luffy.json'
+  import Item from '@/datas/tests/craft/luffy'
 
   export default {
     components: {
@@ -17,7 +17,7 @@
     },
     data() {
       return {
-        item: Item.item
+        item: Item
       }
     }
   }

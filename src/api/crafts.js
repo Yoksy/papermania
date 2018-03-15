@@ -1,4 +1,4 @@
-import Crafts from '@/json/tests/home/popular.json'
+import Crafts from '@/datas/tests/home/popular'
 
 export default {
   getCrafts (cb) {
