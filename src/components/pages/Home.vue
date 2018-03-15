@@ -12,7 +12,7 @@
   <button></button>
 
 
-    <p>test : ===={{trololo}}====</p>
+    <p>test : ===={{testData}}====</p>
   </layout-main>
 
 </template>
@@ -42,7 +42,7 @@
     }, */
     data() {
       return {
-        trololo: 'lorem ipsum'
+        testData: 'lorem ipsum'
       }
     },
     computed: mapGetters({
