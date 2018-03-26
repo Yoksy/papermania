@@ -1,18 +1,34 @@
 <template>
-  <div class="main-layout">
-    <header>
+  <div class="container">
+
+    <nav-bar />
+
+
+    <!-- <header>
       <nav>
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>
       </nav>
-    </header>
-    <hr>
+    </header> -->
 
     <slot/>
 
-    <hr>
-    <footer>
+    <!-- <footer>
       Site footer
-    </footer>
+    </footer> -->
   </div>
 </template>
+
+
+<script>
+import NavBar from '@/components/shared/NavBar'
+import Footer from '@/components/shared/Footer'
+
+export default {
+  components: {
+    NavBar,
+    Footer
+  }
+}
+</script>
+

@@ -1,55 +1,49 @@
 <template>
   <layout-main>
-    <h2>All crafts</h2>
 
-    <div v-for="item in items" :key="item.id">
-      <router-link :to="{name: 'Craft', params: {category: item.category, slug: item.slug}}">{{item.name}}</router-link>
+    <div class="content">
+      <h2>Welcome!</h2>
+      <p>Papermania is a community-driven platform to view, download or share paper creations.</p>
     </div>
 
-    <input type="text" v-super-directive.a.b.c="trololo" />
-    <input type="text" v-model="trololo" />
+    <div>
+      <h2 clas="title">Papercrafts</h2>
 
-  <button></button>
+      <div class="columns is-multiline">
+        <div class="column is-one-quarter" v-for="(item, index) in popularCrafts" :key="index">
+          <card :item="item"/>
+        </div>
+      </div>
 
-
-    <p>test : ===={{testData}}====</p>
+    </div>
   </layout-main>
-
 </template>
 
 <script>
-  import Vue from 'vue'
-  import VueTypes from 'vue-types';
-  import { mapGetters, mapActions } from 'vuex'
-  import LayoutMain from '@/components/layouts/main'
+import Vue from 'vue'
+import VueTypes from 'vue-types'
+import { mapGetters, mapActions } from 'vuex'
+import config from '@/config/index'
+import LayoutMain from '@/components/layouts/main'
+import Card from '@/components/ui/card'
 
-  let superDirective = function(el, binding) {
-    //if (binding.oldValue === binding.value) return
-
-    el.value = binding.value;
-    console.log('all', el, binding)
+export default {
+  components: {
+    LayoutMain,
+    Card
+  },
+  computed: {
+    ...mapGetters({
+      popularCrafts: 'homepagePopular'
+    })
+  },
+  methods: {
+    ...mapActions([
+        'getHomepageCrafts'
+    ]),
+  },
+  created () {
+    this.getHomepageCrafts(config.postsLimit.homepage[this.$mq])
   }
-
-  export default {
-    components: {
-      LayoutMain
-    },
-    directives: {
-      superDirective
-    },
-    /* props: {
-      trololo: { type: String, default: 'lorem ipsum' }
-    }, */
-    data() {
-      return {
-        testData: 'lorem ipsum'
-      }
-    },
-    computed: mapGetters({
-      items: 'allCrafts'
-    }),
-    created () {
-      this.$store.dispatch('getAllCrafts')
-    }
-  }
+}
 </script>

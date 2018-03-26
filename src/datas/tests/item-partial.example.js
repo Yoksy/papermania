@@ -5,6 +5,7 @@ export default {
   descriptionShort: 'A small project of mine consisting of featuring one of my favourite manga character',
   coverSmall: '/medias/user_content/yoksy/custom_monkey_d_#hash#/cover_small.jpg',
   author: 'Yoksy',
+  authorID: 121,
   difficulty: 3,
   completionTime: 120,
   nbLikes: 354,
