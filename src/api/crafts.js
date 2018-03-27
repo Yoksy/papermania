@@ -18,6 +18,6 @@ export default {
         origamis: origamisCrafts.slice(0, limit),
         modelism: modelismCrafts.slice(0, limit)
       })
-    }, 1))
+    }, 100))
   }
 }
