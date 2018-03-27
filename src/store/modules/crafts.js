@@ -3,14 +3,9 @@ import api from '@/api/crafts'
 // initial state
 const state = {
   all: [],
-  homepageCrafts: {
+  crafts: {
     popular: [],
     latest: [],
-    papercraft: [],
-    origamis: [],
-    modelism: []
-  },
-  categoryCrafts: {
     papercraft: [],
     origamis: [],
     modelism: []
@@ -21,36 +16,34 @@ const state = {
 // getters
 const getters = {
   allCrafts: state => state.all,
-  homepagePopular: state => state.homepageCrafts.popular,
-  homepageLatest: state => state.homepageCrafts.latest,
-  homepagePapercraft: state => state.homepageCrafts.papercraft,
-  homepageOrigamis: state => state.homepageCrafts.origamis,
-  homepageModelism: state => state.homepageCrafts.modelism
+  popular: state => state.crafts.popular,
+  latest: state => state.crafts.latest,
+  papercraft: state => state.crafts.papercraft,
+  origamis: state => state.crafts.origamis,
+  modelism: state => state.crafts.modelism
 }
 
 // actions
 const actions = {
-  getAllCrafts({ commit }) {
-    api.getCrafts(crafts => {
-      commit('setCrafts', crafts)
-    })
+  async getAllCrafts({ commit, dispatch }, limit) {
+    let response = await api.getCrafts(limit)
+
+    commit('setCrafts', response)
   },
+  async getCategoryCrafts({ commit, dispatch }, category, limit) {
+    let response = await api.getCrafts(limit, category)
 
-  async getHomepageCrafts({ commit, dispatch }, limit) {
-    let response = await api.getHomepageCrafts(limit)
-
-    commit('setHomepageCrafts', response)
+    commit('setCategoryCrafts', { category: category, response: response })
   }
 }
 
 // mutations
 const mutations = {
   setCrafts(state, response) {
-    state.all = response
+    state.crafts = response
   },
-
-  setHomepageCrafts(state, response) {
-    state.homepageCrafts = response
+  setCategoryCrafts(state, data) {
+    state.crafts[data.category] = data.response
   }
 }
 
