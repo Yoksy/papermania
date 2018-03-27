@@ -82,9 +82,19 @@ export default new Router({
     },
     {
       path: '/user/:id',
-      name: 'user',
       component: User,
       children: [
+        {
+          path: '',
+          beforeEnter: (to, from, next) => {
+            next({
+              name: 'userProfile',
+              params: {
+                id: to.params.id
+              }
+            })
+          }
+        },
         {
           path: 'profile',
           name: 'userProfile',
