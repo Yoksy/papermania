@@ -1,21 +1,25 @@
 <template>
   <layout-main>
+    <section class="hero is-light is-medium">
+      <div class="hero-body">
+        <div class="container">
+          <h2 class="title font-pacifico">Welcome crafter!</h2>
 
-    <div class="content">
-      <h2>Welcome!</h2>
-      <p>Papermania is a community-driven platform to view, download or share paper creations.</p>
-    </div>
+          <p>Papermania is a community-driven platform to view, download or share paper creations and tutorials.</p>
+        </div>
+      </div>
+    </section>
 
-    <div>
-      <h2 clas="title">Papercrafts</h2>
+    <div class="container">
+      <h2 class="title font-pacifico text-shadow">Popular crafts</h2>
 
-      <div class="columns is-multiline">
+      <div class="columns">
         <div class="column is-one-quarter" v-for="(item, index) in popularCrafts" :key="index">
           <card :item="item"/>
         </div>
       </div>
-
     </div>
+
   </layout-main>
 </template>
 
@@ -43,7 +47,7 @@ export default {
     ]),
   },
   created () {
-    this.getHomepageCrafts(config.postsLimit.homepage[this.$mq])
+    this.getHomepageCrafts(config.posts.limit.homepage[this.$mq])
   }
 }
 </script>

@@ -1,0 +1,42 @@
+/**
+* Bulma's variables redefinition
+*/
+
+/* Colors */
+/* Primary Color:
+#446F90
+#44657E
+#2A5576
+#5D89AB
+#668DAB
+Secondary Color A:
+#52529C
+#505089
+#333381
+#6A6AB5
+#7272B5
+Secondary Color B:
+#439974
+#44866A
+#2A7E5A
+#5BB38D
+#65B391
+Complementary Color:
+#DFAA62
+#C39A64
+#B8833D
+#E7B776
+#E7BC83 */
+
+$primary: #668DAB;
+$primary-invert: findColorInvert($primary);
+
+$background: lighten(#668DAB, 40%);
+
+/* Links */
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+/* Navbar */
+$navbar-height: 4rem;

@@ -1,22 +1,9 @@
 <template>
-  <div class="container">
+<div class="wrapper h-100">
+  <nav-bar />
 
-    <nav-bar />
-
-
-    <!-- <header>
-      <nav>
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
-      </nav>
-    </header> -->
-
-    <slot/>
-
-    <!-- <footer>
-      Site footer
-    </footer> -->
-  </div>
+  <slot/>
+</div>
 </template>
 
 
@@ -31,4 +18,3 @@ export default {
   }
 }
 </script>
-

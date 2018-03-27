@@ -1,5 +1,9 @@
-@import 'helpers/typography';
+/**
+* Sass main file
+*/
 
-#app {
-  background-color:rebeccapurple;
-}
+@import 'variables';
+@import 'helpers/typography';
+@import 'helpers/utilities';
+
+

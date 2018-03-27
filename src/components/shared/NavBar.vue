@@ -1,8 +1,9 @@
 <template>
-  <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+<div class="wrapper">
+  <nav class="navbar is-primary container" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link to="/" title="Papermania: a community driven platform to share any kind of paper models" class="navbar-item font-pacifico">
-        <h1>Papermania</h1>
+        <h1 class="title font-pacifico">Papermania</h1>
       </router-link>
 
       <div class="navbar-burger">
@@ -11,7 +12,7 @@
         <span>Lien 3</span>
       </div>
     </div>
-    <div class="navbar-menu">
+    <div class="navbar-start navbar-menu">
       <router-link :to="{ name: 'craftList', params: { category: category.slug }}" v-for="category in categories" :key="category.id" class="navbar-item">
         {{category.name}}
       </router-link>
@@ -27,6 +28,7 @@
       <!-- User profile here -->
     </div>
   </nav>
+</div>
 </template>
 
 <script>
@@ -40,3 +42,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "~bulma/sass/utilities/functions";
+@import "../../assets/sass/variables";
+
+.wrapper {
+  background-color: $primary;
+}
+
+h1 {
+  color: findColorInvert($primary);
+  font-weight: normal;
+}
+</style>
