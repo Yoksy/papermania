@@ -1,15 +1,11 @@
 <template>
-  <layout-main>
-    <p>user view</p>
-  </layout-main>
+  <div class="user-interface">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-  import LayoutMain from '@/components/layouts/main'
+export default {
 
-  export default {
-    components: {
-      LayoutMain
-    }
-  }
+}
 </script>

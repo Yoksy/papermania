@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card h-100">
     <div class="card-image">
       <figure class="image is-4by3">
         <img :src="item.coverSmall" alt="Placeholder image">
@@ -15,15 +15,50 @@
       <div class="media">
         <div class="media-left">
           <figure class="image is-48x48">
-            <img src="https://bulma.io/images/placeholders/64x64.png" alt="Placeholder image">
+            <img :src="item.authorImage" />
           </figure>
         </div>
         <div class="media-content">
-          <p class="is-6">{{item.author}}</p>
-          <p>On <time datetime="2016-1-1">{{item.createdAt}}</time></p>
+          <p class="is-6 is-bold">
+            By
+            <router-link :to="{ name: 'userProfile', params: { id: item.authorId } }">
+              @{{item.authorName}}
+            </router-link>
+          </p>
+          <p class="is-size-7">{{item.createdAt | timeAgo}}</p>
         </div>
       </div>
     </div>
+
+
+
+
+    <footer class="card-footer">
+      <p class="card-footer-item">
+        <span class="icon">
+          <i class="mdi mdi-timelapse"></i>
+        </span>
+        <span class="is-size-7">{{item.completionTime | duration}}</span>
+      </p>
+      <p class="card-footer-item">
+        <span class="icon">
+          <i class="mdi mdi-buffer"></i>
+        </span>
+        <span class="is-size-7">{{item.difficulty | difficulty}}</span>
+      </p>
+      <p class="card-footer-item">
+        <span class="icon">
+          <i class="mdi mdi-heart-outline"></i>
+        </span>
+        <span class="is-size-7">{{item.nbLikes | largeNumber}}</span>
+      </p>
+      <p class="card-footer-item">
+        <span class="icon">
+          <i class="mdi mdi-comment-processing-outline"></i>
+        </span>
+        <span class="is-size-7">{{item.nbComments | largeNumber}}</span>
+      </p>
+    </footer>
   </div>
 </template>
 
@@ -33,19 +68,15 @@ export default {
 }
 </script>
 
-<style>
-.card-content > .title {
-  min-height: 36px;
-  margin-bottom: 6px;
-}
+<style lang="scss">
+.card-content {
+  > .title {
+    min-height: 36px;
+    margin-bottom: 6px;
+  }
 
-.ellispis {
-   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-box-orient: vertical;
-   -webkit-line-clamp: 3; /* number of lines to show */
-   line-height: 18px;        /* fallback */
-   max-height: 18px * 3;       /* fallback */
+  .content p {
+    min-height: 54px;
+  }
 }
 </style>

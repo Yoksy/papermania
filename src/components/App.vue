@@ -16,14 +16,13 @@ export default {
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
 
-// Customization/helpers
-@import "../assets/sass/index";
-
-html, body, #app {
-  height: 100%;
-}
+// Customs variables
+@import "../assets/sass/variables";
 
 // Bulma/Buefy lib
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
+
+// Customization/helpers
+@import "../assets/sass/index";
 </style>

@@ -8,6 +8,9 @@ import App from './components/App'
 import router from './router'
 import store from './store'
 
+import "./helpers/filters";
+import * as constants from "./helpers/constants";
+
 Vue.config.productionTip = false
 
 Vue.use(Buefy)
@@ -20,7 +23,6 @@ Vue.use(VueMq, {
     desktop: Infinity,
   }
 })
-
 
 /* eslint-disable no-new */
 new Vue({
