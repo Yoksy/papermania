@@ -1,0 +1,7 @@
+/**
+* Navbar component customization
+*/
+
+.navbar-menu .navbar-item.router-link-exact-active {
+  background-color: #2A5576; /* @todo replace with variable */
+}

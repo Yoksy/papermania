@@ -6,12 +6,10 @@
       </figure>
     </div>
     <div class="card-content">
-      <p class="title is-6">{{item.name}}</p>
-
       <div class="content">
-        <p class="ellispis">{{item.descriptionShort}}</p>
+        <h3 class="card-content__title is-size-6 ellispis">{{item.name}}</h3>
+        <p class="card-content__description ellispis is-size-7">{{item.descriptionShort}}</p>
       </div>
-
       <div class="media">
         <div class="media-left">
           <figure class="image is-48x48">
@@ -29,10 +27,6 @@
         </div>
       </div>
     </div>
-
-
-
-
     <footer class="card-footer">
       <p class="card-footer-item">
         <span class="icon">
@@ -70,12 +64,12 @@ export default {
 
 <style lang="scss">
 .card-content {
-  > .title {
-    min-height: 36px;
-    margin-bottom: 6px;
+  &__title {
+    height: 36px;
+    margin-bottom: 2rem;
   }
 
-  .content p {
+  &__description {
     min-height: 54px;
   }
 }

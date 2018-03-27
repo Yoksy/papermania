@@ -13,15 +13,15 @@
       </div>
     </div>
     <div class="navbar-start navbar-menu">
-      <router-link :to="{ name: 'craftList', params: { category: category.slug }}" v-for="category in categories" :key="category.id" class="navbar-item">
+      <router-link :to="{ name: 'craftList', params: { category: category.slug }}" v-for="category in categories" :key="category.id" exact class="navbar-item">
         {{category.name}}
       </router-link>
     </div>
     <div class="navbar-end">
-      <router-link :to="{name: 'craft-post'}" class="navbar-item">
+      <router-link :to="{name: 'craft-post'}" exact class="navbar-item">
         Post craft
       </router-link>
-      <router-link :to="{name: 'craft-tutorial'}" class="navbar-item">
+      <router-link :to="{name: 'craft-tutorial'}" exact class="navbar-item">
         Create tutorial
       </router-link>
 
