@@ -3,12 +3,13 @@ import Router from 'vue-router'
 
 import Home from '@/components/pages/Home'
 
-import CraftCategories from '@/components/pages/CraftCategories'
-import CraftList from '@/components/pages/CraftList'
-import CraftItem from '@/components/pages/CraftItem'
+import CategoryList from '@/components/pages/CategoryList'
+import TagList from '@/components/pages/TagList'
+import SearchList from '@/components/pages/SearchList'
+import ItemView from '@/components/pages/ItemView'
 
-import PostCraftSimple from '@/components/pages/PostCraftSimple'
-import PostCraftTutorial from '@/components/pages/PostCraftTutorial'
+import PostItem from '@/components/pages/PostItem'
+import PostTutorial from '@/components/pages/PostTutorial'
 
 import User from '@/components/pages/User'
 import UserProfile from '@/components/pages/UserProfile'
@@ -47,36 +48,50 @@ export default new Router({
       component: Legal
     },
     {
-      path: '/crafts',
-      name: 'crafts',
-      component: CraftCategories,
+      path: '/search',
+      name: 'searchList',
+      component: SearchList,
+      props: (route) => ({ query: route.query.q })
+    },
+    {
+      path: '/category/',
+      component: CategoryList,
+      redirect: { name: 'home' },
       children: [
         {
           path: ':category',
-          name: 'craftList',
-          component: CraftList,
-          children: [
-            {
-              path: ':slug',
-              name: 'craftItem',
-              component: CraftItem,
-            }
-          ]
+          name: 'categoryList'
         }
       ]
+    },
+    {
+      path: '/tag/',
+      component: TagList,
+      redirect: { name: 'home' },
+      children: [
+        {
+          path: ':tag',
+          name: 'tagList'
+        }
+      ]
+    },
+    {
+      path: '/craft/:slug',
+      name: 'itemView',
+      component: ItemView
     },
     {
       path: '/contribute',
       children: [
         {
           path: 'post',
-          name: 'craft-post',
-          component: PostCraftSimple
+          name: 'postItem',
+          component: PostItem
         },
         {
           path: 'tutorial',
-          name: 'craft-tutorial',
-          component: PostCraftTutorial
+          name: 'postTutorial',
+          component: PostTutorial
         }
       ]
     },

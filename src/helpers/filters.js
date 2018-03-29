@@ -18,6 +18,8 @@ Vue.filter("timeAgo", value => distanceInWords(subDays(new Date(value), 3), new 
 
 Vue.filter("difficulty", value => difficulty[value])
 
+Vue.filter("capitalize", value => (!!value) ? value.charAt(0).toUpperCase() + value.substr(1).toLowerCase() : '')
+
 Vue.filter("largeNumber", value =>{
   if (typeof value === "undefined") {
       return;

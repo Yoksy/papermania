@@ -11,7 +11,7 @@ export default [
   },
   {
     id: 2,
-    name: 'Modelisms',
+    name: 'Modelism',
     slug: 'modelism'
   }
 ]

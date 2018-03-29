@@ -7,7 +7,7 @@ const state = {
     popular: [],
     latest: [],
     papercraft: [],
-    origamis: [],
+    origami: [],
     modelism: []
   },
   currentCraft: null
@@ -19,7 +19,7 @@ const getters = {
   popular: state => state.crafts.popular,
   latest: state => state.crafts.latest,
   papercraft: state => state.crafts.papercraft,
-  origamis: state => state.crafts.origamis,
+  origami: state => state.crafts.origami,
   modelism: state => state.crafts.modelism
 }
 
@@ -30,10 +30,10 @@ const actions = {
 
     commit('setCrafts', response)
   },
-  async getCategoryCrafts({ commit, dispatch }, category, limit) {
+  async getCategoryItems({ commit, dispatch }, category, limit) {
     let response = await api.getCrafts(limit, category)
 
-    commit('setCategoryCrafts', { category: category, response: response })
+    commit('setCategoryItems', { category: category, response: response })
   }
 }
 
@@ -42,7 +42,7 @@ const mutations = {
   setCrafts(state, response) {
     state.crafts = response
   },
-  setCategoryCrafts(state, data) {
+  setCategoryItems(state, data) {
     state.crafts[data.category] = data.response
   }
 }

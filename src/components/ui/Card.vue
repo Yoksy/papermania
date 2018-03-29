@@ -1,5 +1,5 @@
 <template>
-  <div class="card h-100">
+  <router-link :to="{ name: 'itemView', params: { slug: item.slug } }" class="card h-100">
     <div class="card-image">
       <figure class="image is-4by3">
         <img :src="item.coverSmall" alt="Placeholder image">
@@ -53,7 +53,7 @@
         <span class="is-size-7">{{item.nbComments | largeNumber}}</span>
       </p>
     </footer>
-  </div>
+  </router-link>
 </template>
 
 <script>
