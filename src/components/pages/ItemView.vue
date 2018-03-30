@@ -130,7 +130,16 @@
         <h2 class="title font-pacifico">Gallery</h2>
 
         <div class="gallery">
-          <gallery :images="gallery.items" :index="gallery.index" @close="gallery.index = null"></gallery>
+          <gallery
+            :images="gallery.items"
+            :index="gallery.index"
+            :options="{
+              youTubeVideoIdProperty: 'youtube',
+              youTubePlayerVars: undefined,
+              youTubeClickToPlay: true,
+              closeOnSlideClick: true
+            }"
+            @close="gallery.index = null"></gallery>
 
           <div class="image-wrapper"
             v-for="(image, imageIndex) in gallery.items"

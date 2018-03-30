@@ -6,7 +6,7 @@
   .image-wrapper {
     position: relative;
     display: inline-block;
-    max-width: 300px;
+    max-width: 314px;
     border: 3px dashed white;
 
     &:hover, &:focus {
@@ -30,5 +30,30 @@
     > span {
       vertical-align: middle;
     }
+  }
+
+  .blueimp-gallery {
+    > .slides > .slide {
+      >.video-content {
+        width: 75%;
+        height: 75%;
+        top: 12.5%;
+        left: 12.5%;
+        bottom: auto;
+        right: auto;
+
+        > img {
+          position: static;
+        }
+      }
+    }
+
+    > .close {
+      display: block;
+    }
+  }
+
+  .blueimp-gallery-controls > .title {
+    margin-top: 0;
   }
 }
