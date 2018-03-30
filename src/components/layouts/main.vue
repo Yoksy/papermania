@@ -1,20 +1,24 @@
 <template>
 <div class="wrapper h-100">
-  <nav-bar />
+  <primary-nav-bar />
 
-  <slot/>
+  <div class="main-content">
+    <slot />
+  </div>
+
+  <primary-footer />
 </div>
 </template>
 
 
 <script>
-import NavBar from '@/components/shared/NavBar'
-import Footer from '@/components/shared/Footer'
+import PrimaryNavBar from '@/components/shared/NavBar'
+import PrimaryFooter from '@/components/shared/Footer'
 
 export default {
   components: {
-    NavBar,
-    Footer
+    PrimaryNavBar,
+    PrimaryFooter
   }
 }
 </script>

@@ -1,7 +1,17 @@
 /**
 * Card component customization
 */
-
+.card-wrapper {
+  display: inline-block;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+}
+.card-content {
+  padding: 1rem;
+  flex-grow: 1;
+}
 .card-footer-item {
   padding: 8px
 }

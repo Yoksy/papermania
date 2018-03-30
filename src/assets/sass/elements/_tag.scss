@@ -1,0 +1,19 @@
+/**
+* Tag element customization
+*/
+
+a.tags {
+  &:hover, &:focus {
+    .tag {
+      color: $primary-invert;
+      background-color: $primary;
+    }
+  }
+}
+
+a.tag {
+  &:hover, &:focus {
+    color: findColorInvert($primary);
+    background-color: $primary;
+  }
+}

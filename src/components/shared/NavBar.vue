@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper">
+<header>
   <nav class="navbar is-primary container" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link to="/" title="Papermania: a community driven platform to share any kind of paper models" class="navbar-item font-pacifico">
@@ -28,7 +28,7 @@
       <!-- User profile here -->
     </div>
   </nav>
-</div>
+</header>
 </template>
 
 <script>
@@ -47,7 +47,7 @@ export default {
 @import "~bulma/sass/utilities/functions";
 @import "../../assets/sass/variables";
 
-.wrapper {
+header {
   background-color: $primary;
 }
 

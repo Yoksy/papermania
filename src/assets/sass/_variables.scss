@@ -31,12 +31,18 @@ Complementary Color:
 $primary: #668DAB;
 $primary-invert: findColorInvert($primary);
 
+$secondary: #439974;
+$secondary-invert: findColorInvert($secondary);
+
 $background: lighten(#668DAB, 40%);
 
 /* Links */
-$link: $primary;
+$link: $secondary;
 $link-invert: $primary-invert;
-$link-focus-border: $primary;
+$link-focus-border: $secondary;
 
 /* Navbar */
 $navbar-height: 4rem;
+
+/* Spacing */
+$section-padding: 1.5rem;
