@@ -17,15 +17,18 @@
         {{category.name}}
       </router-link>
     </div>
-    <div class="navbar-end">
+    <div class="navbar-end navbar-menu">
+      <router-link :to="{name: 'login'}" exact class="navbar-item" v-if="!isLoggedIn">
+        Login
+      </router-link>
+      <!-- User profile here -->
+
       <router-link :to="{name: 'postItem'}" exact class="navbar-item">
         Post craft
       </router-link>
       <router-link :to="{name: 'postTutorial'}" exact class="navbar-item">
         Create tutorial
       </router-link>
-
-      <!-- User profile here -->
     </div>
   </nav>
 </header>
@@ -37,7 +40,8 @@ import categories from '@/datas/categories'
 export default {
   data() {
     return {
-      categories: categories
+      categories: categories,
+      isLoggedIn: false
     }
   }
 }
