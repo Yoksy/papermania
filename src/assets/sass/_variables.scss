@@ -34,7 +34,8 @@ $primary-invert: findColorInvert($primary);
 $secondary: #439974;
 $secondary-invert: findColorInvert($secondary);
 
-$background: lighten(#668DAB, 40%);
+$background: lighten($primary, 40%);
+$body-color: lighten($background, 5%);
 
 /* Links */
 $link: $secondary;
@@ -46,3 +47,4 @@ $navbar-height: 4rem;
 
 /* Spacing */
 $section-padding: 1.5rem;
+$footer-padding: 1.5rem 0 3rem

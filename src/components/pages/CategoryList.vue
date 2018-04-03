@@ -19,8 +19,15 @@ import { mapState, mapActions } from 'vuex'
 import LayoutMain from '@/components/layouts/main'
 import Card from '@/components/ui/card'
 import config from '@/config/index'
+import { capitalizeFirstLetter } from '@/helpers/helpers'
 
 export default {
+  name: 'CategoryList',
+  metaInfo() {
+    return {
+      title: this.categoryLabel
+    }
+  },
   components: {
     LayoutMain,
     Card
@@ -29,6 +36,11 @@ export default {
     return {
       category: this.$route.params.category,
       items: []
+    }
+  },
+  computed: {
+    categoryLabel() {
+      return capitalizeFirstLetter(this.category)
     }
   },
   methods: {
@@ -43,7 +55,6 @@ export default {
     this.getItems()
   },
   beforeRouteUpdate(to, from, next) {
-    console.log(to)
     this.category = to.params.category
 
     //this.getCategoryCrafts({ category: this.category, limit: config.posts.limit.homepage[this.$mq] })

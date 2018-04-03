@@ -18,15 +18,15 @@
       </router-link>
     </div>
     <div class="navbar-end navbar-menu">
-      <router-link :to="{name: 'login'}" exact class="navbar-item" v-if="!isLoggedIn">
+      <router-link :to="{name: 'login'}" class="navbar-item" v-if="!isLoggedIn">
         Login
       </router-link>
       <!-- User profile here -->
 
-      <router-link :to="{name: 'postItem'}" exact class="navbar-item">
+      <router-link :to="{name: 'postItem'}" class="navbar-item">
         Post craft
       </router-link>
-      <router-link :to="{name: 'postTutorial'}" exact class="navbar-item">
+      <router-link :to="{name: 'postTutorial'}" class="navbar-item">
         Create tutorial
       </router-link>
     </div>

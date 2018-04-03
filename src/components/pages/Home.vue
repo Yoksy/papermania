@@ -17,7 +17,7 @@
         <h2 class="title font-pacifico text-shadow">Popular crafts</h2>
 
         <div class="columns is-clipped">
-          <div class="column is-one-quarter" v-for="(item, index) in popular" :key="index">
+          <div class="column is-one-quarter" v-for="(item, index) in home.popular" :key="index">
             <card :item="item"/>
           </div>
         </div>
@@ -26,7 +26,7 @@
         <h2 class="title font-pacifico text-shadow">Rising crafts</h2>
 
         <div class="columns is-clipped">
-          <div class="column is-one-quarter" v-for="(item, index) in rising" :key="index">
+          <div class="column is-one-quarter" v-for="(item, index) in home.rising" :key="index">
             <card :item="item"/>
           </div>
         </div>
@@ -40,11 +40,17 @@
 import Vue from 'vue'
 import VueTypes from 'vue-types'
 import { mapState, mapActions } from 'vuex'
+import { differenceInMinutes } from 'date-fns'
 import config from '@/config/index'
 import LayoutMain from '@/components/layouts/main'
 import Card from '@/components/ui/card'
 
 export default {
+  name: 'Home',
+  metaInfo: {
+    title: 'Papermania - share your paper models to the world!',
+    titleTemplate: null
+  },
   components: {
     LayoutMain,
     Card
@@ -55,16 +61,25 @@ export default {
       tutorialsCount: 8
     }
   },
-  computed: mapState('crafts', ['popular', 'rising']),
-  methods: mapActions('crafts', ['getHomeCrafts']),
+  computed: mapState('crafts', ['home']),
   created() {
-    this.getHomeCrafts({ limit: config.posts.limit.homepage[this.$mq] })
+    const action = 'crafts/getHomeItems',
+          params = { limit: config.posts.limit.homepage[this.$mq] }
+
+    if (this.$store.cache.has(action, params)) {
+      if (Math.abs(differenceInMinutes(this.home.lastUpdated, new Date())) > 10) {
+        this.$store.cache.delete(action, params)
+      }
+    }
+
+    this.$store.cache.dispatch(action, params)
+
   }
 }
 </script>
 
 <style scoped>
 .hero-body > .container {
-  padding-left: 1.5rem;
+  padding-left: 1.5rem
 }
 </style>

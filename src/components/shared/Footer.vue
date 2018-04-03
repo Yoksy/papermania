@@ -3,7 +3,12 @@
     <div class="container">
       <div class="content has-text-centered">
         <p>
-          <strong>Papermania</strong>
+          <strong>&copy; Papermania 2018</strong> -
+        </p>
+        <p>
+          <router-link :to="{name: 'legal'}">
+            Legal mentions
+          </router-link>
         </p>
       </div>
     </div>

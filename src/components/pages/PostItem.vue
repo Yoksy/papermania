@@ -8,6 +8,10 @@
   import LayoutMain from '@/components/layouts/main'
 
   export default {
+    name: 'PostItem',
+    metaInfo: {
+      title: 'Post new craft'
+    },
     components: {
       LayoutMain
     }

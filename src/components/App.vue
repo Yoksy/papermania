@@ -8,7 +8,11 @@
 
 
 export default {
-  name: 'App'
+  name: 'App',
+  metaInfo: {
+    title: 'Papermania',
+    titleTemplate: '%s - Papermania'
+  }
 }
 </script>
 
