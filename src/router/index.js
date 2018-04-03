@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Meta from 'vue-meta'
 
 import Home from '@/components/pages/Home'
 
@@ -9,21 +10,20 @@ import SearchList from '@/components/pages/SearchList'
 import ItemView from '@/components/pages/ItemView'
 
 import PostItem from '@/components/pages/PostItem'
-import PostTutorial from '@/components/pages/PostTutorial'
+import postTutorial from '@/components/pages/PostTutorial'
 
 import User from '@/components/pages/User'
 import UserProfile from '@/components/pages/UserProfile'
 import UserCrafts from '@/components/pages/UserCrafts'
 
 import AuthLogin from '@/components/pages/AuthLogin'
-import AuthRegister from '@/components/pages/AuthRegister'
-import AuthForgottenPassword from '@/components/pages/AuthForgottenPassword'
 
 import About from '@/components/pages/About'
 import Legal from '@/components/pages/Legal'
 
 
 Vue.use(Router)
+Vue.use(Meta)
 
 export default new Router({
   mode: 'history',
@@ -82,18 +82,17 @@ export default new Router({
     },
     {
       path: '/contribute',
-      children: [
-        {
-          path: 'post',
-          name: 'postItem',
-          component: PostItem
-        },
-        {
-          path: 'tutorial',
-          name: 'postTutorial',
-          component: PostTutorial
-        }
-      ]
+      redirect: { name: 'postItem' },
+    },
+    {
+      path: '/contribute/post',
+      name: 'postItem',
+      component: PostItem
+    },
+    {
+      path: '/contribute/tutorial',
+      name: 'postTutorial',
+      component: postTutorial
     },
     {
       path: '/user/:id',
@@ -125,17 +124,8 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: AuthLogin
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: AuthRegister
-    },
-    {
-      path: '/forgotten_password',
-      name: 'forgotten-password',
-      component: AuthForgottenPassword
+      component: AuthLogin,
+      alias: ['/register', '/forgotten-password']
     }
   ]
 })
