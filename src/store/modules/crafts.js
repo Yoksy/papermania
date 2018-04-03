@@ -2,12 +2,28 @@ import api from "@/api/crafts"
 
 // initial state
 const state = {
-  popular: [],
-  rising: [],
-  papercraft: [],
-  origami: [],
-  modelism: [],
-  current: null
+  home: {
+    popular: [],
+    rising: [],
+    papercraft: [],
+    origami: [],
+    modelism: [],
+    lastUpdated: null
+  },
+  category: {
+    papercraft: {
+      items: [],
+      lastUpdated: null
+    },
+    origami: {
+      items: [],
+      lastUpdated: null
+    },
+    modelism: {
+      items: [],
+      lastUpdated: null
+    }
+  }
 }
 
 // getters
@@ -17,32 +33,33 @@ const getters = {
 
 // actions
 const actions = {
-  async getHomeCrafts({ commit, dispatch }, payload) {
-    let response = await api.getHomeCrafts(payload.limit)
+  async getHomeItems({ commit, dispatch }, payload) {
+    const response = await api.getHomeItems(payload.limit);
 
-    commit("setCrafts", response)
+    commit("setHomeItems", response)
   },
-  async getCategoryCrafts({ commit, dispatch }, payload) {
-    let response = await api.getCrafts(payload.limit, payload.category)
-
-    commit("setCategoryCrafts", {
+  async getCategoryItems({ commit, dispatch }, payload) {
+    commit("setCategoryItems", {
       category: payload.category,
-      response: response
+      response: await api.getItems(payload.limit, payload.category)
     })
   }
 }
 
 // mutations
 const mutations = {
-  setCrafts(state, data) {
+  setHomeItems(state, data) {
     for (let key in data) {
       if (data.hasOwnProperty(key)) {
-        state[key] = data[key]
+        state.home[key] = data[key]
       }
     }
+
+    state.home.lastUpdated = new Date()
   },
-  setCategoryCrafts(state, data) {
-    state[data.category] = data.response
+  setCategoryItems(state, data) {
+    state.category[data.category].items = data.response
+    state.category[data.category].lastUpdated = new Date()
   }
 }
 
