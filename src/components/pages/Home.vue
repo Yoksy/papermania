@@ -5,7 +5,6 @@
         <div class="container content">
           <h2 class="title font-pacifico">Welcome crafter!</h2>
 
-
           <p>Papermania is a community-driven platform to view, download or share paper creations and tutorials.</p>
           <p>Our community has published <strong>{{craftsCount}} crafts</strong> and <strong>{{tutorialsCount}} tutorials</strong> so far.</p>
         </div>

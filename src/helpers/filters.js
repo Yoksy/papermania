@@ -3,6 +3,11 @@ import { distanceInWords } from 'date-fns'
 import subDays from 'date-fns/sub_days'
 import { difficulty } from '@/helpers/constants'
 
+Vue.filter("limit", (value, max) => {
+  if (value.length > max) return value.slice(0, max) + '...'
+  else return value
+})
+
 Vue.filter("duration", value => {
   let quotient = Math.floor(value/60)
   let remainder = value % 60

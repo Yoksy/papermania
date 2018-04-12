@@ -8,20 +8,20 @@
       </div>
       <div class="card-content">
         <div class="content">
-          <h3 class="card-content__title is-size-6 ellispis">{{item.name}}</h3>
-          <p class="card-content__description ellispis is-size-7">{{item.descriptionShort}}</p>
+          <h3 class="card-content__title is-size-6 ellispis">{{item.title}}</h3>
+          <p class="card-content__description ellispis is-size-7">{{item.description | limit(100)}}</p>
         </div>
         <div class="media">
           <div class="media-left">
             <figure class="image is-48x48">
-              <img :src="item.authorImage" />
+              <img :src="item.author.avatar" />
             </figure>
           </div>
           <div class="media-content">
             <p class="is-6 is-bold">
               By
-              <router-link :to="{ name: 'userProfile', params: { id: item.authorId } }">
-                @{{item.authorName}}
+              <router-link :to="{ name: 'userProfile', params: { id: item.author.user_id } }">
+                @{{item.author.username}}
               </router-link>
             </p>
             <p class="is-size-7">{{item.createdAt | timeAgo}}</p>
@@ -42,7 +42,7 @@
           <span class="icon">
             <i class="mdi mdi-timelapse"></i>
           </span>
-          <span class="is-size-7">{{item.completionTime | duration}}</span>
+          <span class="is-size-7">{{item.completion_time | duration}}</span>
         </p>
         <p class="card-footer-item">
           <span class="icon">
@@ -54,13 +54,13 @@
           <span class="icon">
             <i class="mdi mdi-heart-outline"></i>
           </span>
-          <span class="is-size-7">{{item.nbLikes | largeNumber}}</span>
+          <span class="is-size-7">{{item.meta.votes | largeNumber}}</span>
         </p>
         <p class="card-footer-item">
           <span class="icon">
             <i class="mdi mdi-comment-processing-outline"></i>
           </span>
-          <span class="is-size-7">{{item.nbComments | largeNumber}}</span>
+          <span class="is-size-7">{{item.comments.length | largeNumber}}</span>
         </p>
       </footer>
     </div>
