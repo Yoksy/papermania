@@ -37,13 +37,11 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import VueTypes from 'vue-types'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import { differenceInMinutes } from 'date-fns'
-import config from '@/config/index'
 import LayoutMain from '@/components/layouts/main'
 import Card from '@/components/ui/card'
+import config from '@/config/index'
 
 export default {
   name: 'Home',
@@ -61,9 +59,9 @@ export default {
       tutorialsCount: 8
     }
   },
-  computed: mapState('crafts', ['home']),
+  computed: mapState('items', ['home']),
   created() {
-    const action = 'crafts/getHomeItems',
+    const action = 'items/LOAD_HOME_ITEMS',
           params = { limit: config.posts.limit.homepage[this.$mq] }
 
     if (this.$store.cache.has(action, params)) {

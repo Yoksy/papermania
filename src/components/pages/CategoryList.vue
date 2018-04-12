@@ -5,7 +5,7 @@
         <h2 class="title text-shadow">Category {{ category | capitalize }}</h2>
 
         <div class="columns is-multiline">
-          <div class="column is-one-quarter" v-for="(item, index) in items" :key="index">
+          <div class="column is-one-quarter" v-for="(item, index) in papercraft.items" :key="index">
             <card :item="item"/>
           </div>
         </div>
@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
+import { differenceInMinutes } from 'date-fns'
 import LayoutMain from '@/components/layouts/main'
 import Card from '@/components/ui/card'
 import config from '@/config/index'
@@ -35,29 +36,35 @@ export default {
   data() {
     return {
       category: this.$route.params.category,
-      items: []
+      listParams: {
+        postLimit: config.posts.limit.default[this.$mq],
+        category: this.$route.params.category,
+      },
+      loadAction: 'items/LOAD_CATEGORY_ITEMS'
     }
   },
   computed: {
+    ...mapState('items', ['papercraft']),
     categoryLabel() {
       return capitalizeFirstLetter(this.category)
-    }
-  },
-  methods: {
-    ...mapActions('crafts', ['getCategoryCrafts']),
-    async getItems () {
-      const response = await this.$http.get(`/category/${this.category}.js`);
+    },
 
-      this.items = response.json()
-    }
   },
   created() {
-    this.getItems()
+
+    if (this.$store.cache.has(this.loadAction, this.listParams)) {
+      if (Math.abs(differenceInMinutes(this.items.lastUpdated, new Date())) > 10) {
+        this.$store.cache.delete(this.loadAction, this.listParams)
+      }
+    }
+
+    this.$store.cache.dispatch(this.loadAction, this.listParams)
   },
   beforeRouteUpdate(to, from, next) {
-    this.category = to.params.category
+    this.currentCategory = to.params.category
+    this.listParams.category = to.params.category
 
-    //this.getCategoryCrafts({ category: this.category, limit: config.posts.limit.homepage[this.$mq] })
+    this.$store.cache.dispatch(this.loadAction, this.listParams)
 
     next()
   }
