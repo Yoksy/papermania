@@ -1,20 +1,23 @@
 <template>
 <layout-main>
-  <section class="hero is-medium">
+  <section class="hero is-medium" :style="{ 'background-image': 'url(' + backgroundImage + ')' }">
     <div class="hero-body">
       <div class="container">
-        <h1 class="title">Test craft</h1>
+        <h1 class="title">{{item.title}}</h1>
 
         <div class="media">
           <figure class="media-left">
             <p class="image is-64x64">
-              <img src="https://bulma.io/images/placeholders/128x128.png">
+              <img :src="item.author && item.author.avatar">
             </p>
           </figure>
           <div class="media-content">
             <div class="content">
-              <p>
-                By <strong>John Smith</strong><br /> <small>@johnsmith</small>
+              <p v-if="item.author">
+                By <strong>{{item.author.display_name}}</strong><br />
+                <router-link :to="{ name: 'userProfile', params: { id: item.author.user_id } }">
+                  <small>@{{item.author.username}}</small>
+                </router-link>
               </p>
             </div>
           </div>
@@ -31,7 +34,7 @@
                   <i class="mdi mdi-timelapse"></i>
                 </span>
               </span>
-              <span class="tag is-medium"><strong>~3h30</strong></span>
+              <span class="tag is-medium"><strong>~{{item.completion_time | duration}}</strong></span>
             </div>
           </div>
 
@@ -42,7 +45,7 @@
                   <i class="mdi mdi-buffer"></i>
                 </span>
               </span>
-              <span class="tag is-medium">Beginner</span>
+              <span class="tag is-medium">{{item.difficulty | difficulty}}</span>
             </div>
           </div>
 
@@ -53,11 +56,11 @@
                   <i class="mdi mdi-heart-outline"></i>
                 </span>
               </span>
-              <span class="tag is-medium">8,5k likes</span>
+              <span class="tag is-medium">{{item.meta && item.meta.votes | largeNumber}} votes</span>
             </div>
           </div>
 
-          <div class="control">
+          <!-- <div class="control">
             <div class="tags has-addons">
               <span class="tag is-danger is-medium">
                 <span class="icon">
@@ -66,7 +69,7 @@
               </span>
               <span class="tag is-medium">125k downloads</span>
             </div>
-          </div>
+          </div> -->
 
           <div class="control">
             <div class="tags has-addons">
@@ -86,10 +89,14 @@
   <section class="section">
     <div class="container">
       <div class="content">
-        <p>
-          <span>Posted by <strong>John Smith</strong> on 2017-05-03 at 11:15</span>
+        <p v-if="item.author">
+          <span>Posted by <strong>{{item.author.display_name}}</strong>
+          <router-link :to="{ name: 'userProfile', params: { id: item.author.user_id } }">
+            <small>@{{item.author.username}}</small>
+          </router-link>
+          on {{item.createdAt | posted}}</span>
         </p>
-        <p>Sed sollicitudin orci non ex dapibus efficitur. Praesent ac nisl auctor, viverra leo ac, consectetur nunc. Nam quam odio, lobortis sit amet accumsan nec, convallis non metus. Etiam rhoncus maximus ante hendrerit tincidunt. Mauris vitae odio sit amet quam eleifend ultrices. Cras ornare vitae nulla a fermentum. Ut tempor felis erat, et volutpat lectus luctus sed. Vivamus molestie malesuada dolor, eget eleifend nunc malesuada blandit. Nunc at finibus sem. Nam est justo, mattis at tellus quis, laoreet auctor eros.</p>
+        <p>{{item.description}}</p>
       </div>
 
       <div class="buttons">
@@ -129,9 +136,9 @@
       <div class="content">
         <h2 class="title font-pacifico">Gallery</h2>
 
-        <div class="gallery">
+        <div class="gallery" v-if="item.medias">
           <gallery
-            :images="gallery.items"
+            :images="gallery.images"
             :index="gallery.index"
             :options="{
               youTubeVideoIdProperty: 'youtube',
@@ -142,9 +149,9 @@
             @close="gallery.index = null"></gallery>
 
           <div class="image-wrapper"
-            v-for="(image, imageIndex) in gallery.items"
-            :key="imageIndex"
-            @click="gallery.index = imageIndex">
+            v-for="(image, index) in gallery.images"
+            :key="index"
+            @click="gallery.index = index">
             <div class="image">
               <span class="image-expand">
                 <span>View in full size</span>
@@ -153,7 +160,7 @@
                   <i class="mdi mdi-24px mdi-arrow-expand"></i>
                 </span>
               </span>
-              <img :src="image.poster || image.href" alt="">
+              <img :src="image.thumbnail" alt="">
             </div>
           </div>
         </div>
@@ -163,21 +170,24 @@
 
   <section class="section">
     <div class="container">
-      <div class="content">
+      <div class="content" v-if="item.medias">
         <h2 class="title font-pacifico">Downloads</h2>
 
-        <p>There is currently 3 downloads available:</p>
+        <p v-if="item.medias.download.length > 0">There is currently {{item.medias.download.length}} downloads available:</p>
+        <p v-if="item.medias.download.length === 0">There is currently no downloads available</p>
       </div>
 
       <div class="list-download">
-        <p>
-          <span class="tag is-link is-medium">
-            <span class="icon">
-              <i class="mdi mdi-download"></i>
+        <ul v-if="item.medias">
+          <li v-for="(download, index) in item.medias.download" :key="index">
+            <span class="tag is-link is-medium">
+              <span class="icon">
+                <i class="mdi mdi-download"></i>
+              </span>
             </span>
-          </span>
-          <a href="download/monkey-d-luffy.pdf">monkey-d-luffy.pdf (PDF - 34,5kb - ~125k downloads)</a>
-        </p>
+            <a href="download/monkey-d-luffy.pdf">{{download}} (PDF - 34,5kb - ~125k downloads)</a>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -194,6 +204,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Gallery from 'vue-gallery';
 import LayoutMain from '@/components/layouts/main'
 
@@ -202,30 +213,40 @@ export default {
     LayoutMain,
     Gallery
   },
-  data() {
+  /* data() {
     return {
       gallery: {
-        items: [
-          {
-            title: 'A YouYube video',
-            href: 'https://www.youtube.com/watch?v=hNdlUHBJDKs',
-            type: 'text/html',
-            youtube: 'hNdlUHBJDKs',
-            poster: 'https://img.youtube.com/vi/hNdlUHBJDKs/maxresdefault.jpg'
-          },
+        images: [
           {
             href: 'https://dummyimage.com/800/ffffff/000000',
-            alt: 'test alt'
-          },
-          {
-            href: 'https://dummyimage.com/1280/000000/ffffff',
-            alt: 'test alt 2'
+            alt: 'alt'
           }
         ],
         index: null
       }
-    };
-  }
+    }
+  }, */
+  computed: {
+    ...mapState('items', ['currentItem']),
+    item() {
+      return this.currentItem
+    },
+    backgroundImage() {
+      return this.currentItem.medias && this.currentItem.medias.cover
+    },
+    gallery() {
+      return {
+        images: this.currentItem.medias && this.currentItem.medias.gallery,
+        index: null
+      }
+    }
+  },
+  created() {
+    this.$store.dispatch('items/LOAD_ITEM', {
+      id: this.$route.params.id,
+      slug: this.$route.params.slug
+    })
+  },
 }
 </script>
 
@@ -238,5 +259,9 @@ export default {
       top: 10px;
       right: 10px;
     }
+  }
+
+  .list-download li {
+    margin-bottom: 12px;
   }
 </style>

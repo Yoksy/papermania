@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'itemView', params: { slug: item.slug } }" class="card-wrapper h-100">
+  <router-link :to="{ name: 'itemView', params: { id: item.item_id } }" class="card-wrapper h-100">
     <div class="card h-100">
       <div class="card-image">
         <figure class="image is-4by3">

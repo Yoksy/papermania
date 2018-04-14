@@ -76,7 +76,7 @@ export default new Router({
       ]
     },
     {
-      path: '/craft/:slug',
+      path: '/craft/:id',
       name: 'itemView',
       component: ItemView
     },

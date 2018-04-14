@@ -2,6 +2,7 @@ import Vue from "vue"
 import { distanceInWords } from 'date-fns'
 import subDays from 'date-fns/sub_days'
 import { difficulty } from '@/helpers/constants'
+import strftime from 'strftime';
 
 Vue.filter("limit", (value, max) => {
   if (value.length > max) return value.slice(0, max) + '...'
@@ -42,3 +43,5 @@ Vue.filter("largeNumber", value =>{
 
   return (value/1000000).toFixed(1) + 'm';
 })
+
+Vue.filter("posted", value => strftime('%F at %T', new Date(value)))

@@ -1,7 +1,7 @@
 /**
  * Helpers functions
  */
-const strftime = require('strftime');
+import strftime from 'strftime';
 
 export function hyphenate(str) {
   return str.replace(/ /g,"-");

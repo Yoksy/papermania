@@ -70,7 +70,6 @@ export default {
     }
 
     this.$store.cache.dispatch(action, params)
-
   }
 }
 </script>

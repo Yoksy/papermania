@@ -22,7 +22,8 @@ const state = {
   modelism: {
     items: [],
     lastUpdated: null
-  }
+  },
+  currentItem: []
 }
 
 // getters
@@ -32,14 +33,14 @@ const getters = {
 
 // actions
 const actions = {
-  LOAD_HOME_ITEMS({ commit, dispatch }, payload) {
+  LOAD_HOME_ITEMS({ commit }, payload) {
     axios.get('/items').then((response) => {
       commit('SET_HOME_ITEMS', response.data)
     }, (err) => {
       console.log(err)
     })
   },
-  LOAD_CATEGORY_ITEMS({ commit, dispatch }, payload) {
+  LOAD_CATEGORY_ITEMS({ commit }, payload) {
     axios.get(`/items/${payload.category}`).then((response) => {
       commit('SET_CATEGORY_ITEMS', {
         category: payload.category,
@@ -48,12 +49,19 @@ const actions = {
     }, (err) => {
       console.log(err)
     })
+  },
+  LOAD_ITEM({ commit }, payload) {
+    axios.get(`/item/${payload.id}`).then((response) => {
+      commit('SET_ITEM', response.data)
+    }, (err) => {
+      console.log(err)
+    })
   }
 }
 
 // mutations
 const mutations = {
-  SET_HOME_ITEMS(state, data) {
+  SET_HOME_ITEMS(state, response) {
     //console.log(data)
     /* for (let key in data) {
       if (data.hasOwnProperty(key)) {
@@ -61,12 +69,15 @@ const mutations = {
       }
     } */
 
-    state.home.popular = data
+    state.home.popular = response
     state.home.lastUpdated = getCurrentStrftime()
   },
   SET_CATEGORY_ITEMS(state, data) {
     state[data.category].items = data.response
     state[data.category].lastUpdated = getCurrentStrftime()
+  },
+  SET_ITEM(state, response) {
+    state.currentItem = response[0]
   }
 }
 

@@ -36,11 +36,6 @@ export default {
   data() {
     return {
       category: this.$route.params.category,
-      listParams: {
-        postLimit: config.posts.limit.default[this.$mq],
-        category: this.$route.params.category,
-      },
-      loadAction: 'items/LOAD_CATEGORY_ITEMS'
     }
   },
   computed: {
@@ -53,6 +48,11 @@ export default {
     }
   },
   created() {
+    this.loadAction = 'items/LOAD_CATEGORY_ITEMS'
+    this.listParams = {
+      postLimit: config.posts.limit.default[this.$mq],
+      category: this.$route.params.category,
+    }
 
     if (this.$store.cache.has(this.loadAction, this.listParams)) {
       if (Math.abs(differenceInMinutes(this.items.lastUpdated, new Date())) > 10) {
