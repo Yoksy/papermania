@@ -3,7 +3,7 @@
     <div class="card h-100">
       <div class="card-image">
         <figure class="image is-4by3">
-          <img :src="item.coverSmall" alt="Placeholder image">
+          <img :src="item.medias.thumbnail" alt="Placeholder image">
         </figure>
       </div>
       <div class="card-content">
@@ -19,9 +19,9 @@
           </div>
           <div class="media-content">
             <p class="is-6 is-bold">
-              By
+              By {{item.author.display_name}}
               <router-link :to="{ name: 'userProfile', params: { id: item.author.user_id } }">
-                @{{item.author.username}}
+                <small>@{{item.author.username}}</small>
               </router-link>
             </p>
             <p class="is-size-7">{{item.createdAt | timeAgo}}</p>

@@ -5,7 +5,7 @@
         <h2 class="title text-shadow">Category {{ category | capitalize }}</h2>
 
         <div class="columns is-multiline">
-          <div class="column is-one-quarter" v-for="(item, index) in papercraft.items" :key="index">
+          <div class="column is-one-quarter" v-for="(item, index) in items" :key="index">
             <card :item="item"/>
           </div>
         </div>
@@ -44,11 +44,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('items', ['papercraft']),
+    ...mapState('items', ['papercraft', 'origami', 'modelism']),
     categoryLabel() {
       return capitalizeFirstLetter(this.category)
     },
-
+    items() {
+      return this[this.category].items
+    }
   },
   created() {
 
@@ -61,12 +63,17 @@ export default {
     this.$store.cache.dispatch(this.loadAction, this.listParams)
   },
   beforeRouteUpdate(to, from, next) {
-    this.currentCategory = to.params.category
+    this.category = to.params.category
     this.listParams.category = to.params.category
 
     this.$store.cache.dispatch(this.loadAction, this.listParams)
 
     next()
+  },
+  methods: {
+    setItems() {
+      this.items = this[this.category].items;
+    }
   }
 }
 </script>

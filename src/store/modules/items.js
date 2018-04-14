@@ -40,7 +40,7 @@ const actions = {
     })
   },
   LOAD_CATEGORY_ITEMS({ commit, dispatch }, payload) {
-    axios.get('/items').then((response) => {
+    axios.get(`/items/${payload.category}`).then((response) => {
       commit('SET_CATEGORY_ITEMS', {
         category: payload.category,
         response: response.data
@@ -62,7 +62,6 @@ const mutations = {
     } */
 
     state.home.popular = data
-
     state.home.lastUpdated = getCurrentStrftime()
   },
   SET_CATEGORY_ITEMS(state, data) {
