@@ -4,70 +4,17 @@
       <div class="column is-4 is-offset-4">
 
         <h3 class="title has-text-grey">
-          <span v-if="stateName === 'login'">Login</span>
-          <span v-if="stateName === 'register'">Register</span>
-          <span v-if="stateName === 'forgotten-password'">Forgotten password</span>
+          <span v-if="stateName === 'login'">Login to your account</span>
+          <span v-if="stateName === 'register'">Register a new account</span>
+          <span v-if="stateName === 'forgotten-password'">Retrieve your password by email</span>
         </h3>
 
         <div class="box">
-          <form id="loginForm" @submit="submitForm">
+          <form @submit="onFormSubmit">
+            <formly-form :form="form" :model="model" :fields="fields" ref="registerForm"></formly-form>
 
-            <b-field v-if="stateName === 'login'"
-              label="Email or username">
-              <b-input v-model="account" icon="at"></b-input>
-            </b-field>
-
-            <b-field v-if="stateName === 'register'"
-              label="Username"
-              :type="formState['username'].validationType"
-              :message="formState['username'].message">
-              <b-input
-                id="username-input"
-                icon="account"
-                v-model="username"
-                :minlength="formState['username'].minLength"
-                :maxlength="formState['username'].maxLength"
-                :loading="formState['username'].isLoading"
-                @blur="onUsernameBlur"></b-input>
-            </b-field>
-
-            <b-field v-if="stateName === 'register'"
-              label="Email"
-              :type="formState['email'].validationType"
-              :message="formState['email'].message">
-              <b-input
-                id="email-input"
-                type="email"
-                icon="email"
-                v-model="email"
-                :maxlength="formState['email'].maxLength"
-                @blur="onEmailBlur"></b-input>
-            </b-field>
-
-            <b-field v-if="stateName !== 'forgotten-password'"
-              v-model="password"
-              label="Password">
-              <b-input
-                type="password"
-                icon="key-variant"
-                :minlength="formState['password'].minLength"
-                :maxlength="formState['password'].maxLength"
-                password-reveal></b-input>
-            </b-field>
-
-            <p class="has-text-right" v-if="stateName === 'login'">
-              <router-link to="/forgotten-password">
-                Forgot Password ?
-              </router-link>
-            </p>
-
-            <div class="field" v-if="stateName === 'login'">
-              <b-checkbox size="is-small">Remember me</b-checkbox>
-            </div>
             <button class="button is-block is-info is-large is-fullwidth">
-              <span v-if="stateName === 'login'">Login</span>
-              <span v-if="stateName === 'register'">Register</span>
-              <span v-if="stateName === 'forgotten-password'">Send email</span>
+              Register
             </button>
           </form>
         </div>
@@ -85,8 +32,9 @@
 </template>
 
 <script>
+import { Span } from 'vue-formly-buefy/dist/controls'
 import LayoutFullHeight from '@/components/layouts/fullHeight'
-import { capitalizeFirstLetter, unhyphenate } from '@/helpers/helpers'
+import { capitalizeFirstLetter, unhyphenate, debounce } from '@/helpers/helpers'
 
 export default {
   name: 'Login',
@@ -101,11 +49,135 @@ export default {
   data() {
     return {
       stateName: this.$route.path.slice(1),
-      username: null,
-      email: null,
-      password: null,
-      account: null,
-      formState: {
+      form: {
+        $errors: {
+          username: {
+            required: true,
+            existing: "The username already exists"
+          },
+          email: {
+            required: true,
+            format: "The email address doesn't match the pattern",
+            $async_format: false
+          },
+          password: {
+            required: true,
+            reliability: false
+          }
+        },
+        $valid: true,
+        username: {
+          $active: false,
+          $dirty: false
+        },
+        email: {
+          $active: false,
+          $dirty: false
+        },
+        password: {
+          $active: false,
+          $dirty: false
+        }
+      },
+      model: {
+        username: "",
+        email: "",
+        password: ""
+      },
+      fields: [
+        {
+          key: "username",
+          type: "input-with-field",
+          required: true,
+          templateOptions: {
+            properties: {
+              placeholder: "Your username",
+              icon: "account",
+              minlength: 3,
+              maxlength: 30,
+              required: true
+            }
+          },
+          validators: {
+            length: {
+              expression: "model[field.key].length > 3",
+              message: "This username must be at least 3 characters long"
+            },
+            validUsername: {
+              expression(field, model, next) {
+                console.log(model[field.key])
+                return next(true)
+              },
+              message: 'This username is already taken'
+            },
+            /* async validUsername(field, model, next) {
+              console.log('validate username', model.username)
+              if (model.username.length < field.templateOptions.properties.minlength)
+                return
+
+
+              const response = await this.$store.dispatch(`users/CHECK_USERNAME_OR_EMAIL_AVAILABILITY`, {
+                username: model.username
+              });
+
+              console.log('response', response)
+
+              next(response.status == 'ok'); */
+            }
+            /* existing: {
+              expression: "model[field.key] !== \"johnsilver\"",
+              message: "This username already exists"
+            }
+          } */
+        },
+        {
+          key: "email",
+          type: "input-with-field",
+          required: true,
+          templateOptions: {
+            properties: {
+              placeholder: "Your email address",
+              icon: "email",
+              type: "email",
+              maxlength: 60,
+              required: true
+            },
+            wrapper: {
+              properties: {
+                addons: false
+              }
+            }
+          }
+        },
+        {
+          key: "password",
+          type: "input-with-field",
+          required: true,
+          templateOptions: {
+            properties: {
+              placeholder: "Your password",
+              icon: "key-variant",
+              minlength: 8,
+              maxlength: 60,
+              "password-reveal": true,
+              type: "password",
+              required: true
+            },
+            wrapper: {
+              properties: {
+                addons: false
+              }
+            }
+          },
+          validators: {
+            reliability: {
+              expression: "model[field.key].length > 8",
+              message: "The password must be at least 8 characters long"
+            }
+          }
+        }
+      ]
+      /* formState: {
         username: {
           isLoading: false,
           minLength: 3,
@@ -123,7 +195,7 @@ export default {
           minLength: 6,
           maxLength: 30
         },
-      }
+      } */
     }
   },
   computed: {
@@ -132,13 +204,22 @@ export default {
     }
   },
   methods: {
+    onFormSubmit() {
+      this.$refs.loginForm.validate()
+        .then(() => {
+          console.log('form validated')
+        })
+        .catch((e)=>{
+            console.warn(e)
+        })
+    },
     onUsernameBlur() {
-      this.handleInputRegisterBlur('username')
+      this.validate('username')
     },
     onEmailBlur() {
-      this.handleInputRegisterBlur('email')
+      this.validate('email')
     },
-    async handleInputRegisterBlur(inputName) {
+    /* async validate(inputName) {
       if (this.formState[inputName].isLoading)
         return
 
@@ -186,13 +267,13 @@ export default {
       this.formState[inputName].lastValue = this[inputName];
 
       this.$forceUpdate()
-    },
+    }, */
     submitForm(ev) {
       ev.preventDefault()
 
 
 
-      switch (this.stateName) {
+      /* switch (this.stateName) {
         case 'login':
           console.log('login')
           break;
@@ -204,7 +285,7 @@ export default {
         case 'forgotten-password':
           console.log('forgotten-password')
           break;
-      }
+      } */
     }
   },
   beforeRouteUpdate(to, from, next) {

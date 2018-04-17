@@ -13,7 +13,7 @@ const getters = {
 
 // actions
 const actions = {
-  async CHECK_USER_AVAILABILITY({ commit }, payload) {
+  async CHECK_USERNAME_OR_EMAIL_AVAILABILITY({ commit }, payload) {
     const queryData = payload.username || payload.email;
     const user = await axios.get(`/users/${queryData}`);
 

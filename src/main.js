@@ -2,6 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from "vue"
 import Buefy from "buefy"
+import VueFormly from 'vue-formly'
+import VueFormlyBuefy from 'vue-formly-buefy'
 import VueMq from "vue-mq"
 import axios from "axios"
 
@@ -16,6 +18,8 @@ import * as constants from "./helpers/constants"
 Vue.config.productionTip = false
 
 Vue.use(Buefy)
+Vue.use(VueFormly)
+Vue.use(VueFormlyBuefy)
 
 Vue.use(VueMq, {
   breakpoints: {
